@@ -12,6 +12,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "address_name")
     private String name;
 
     private String number;
@@ -20,7 +21,7 @@ public class Address {
 
     private String reference;
 
-    @ManyToOne
+    @Embedded
     private City city;
 
     @OneToMany(mappedBy = "address")
