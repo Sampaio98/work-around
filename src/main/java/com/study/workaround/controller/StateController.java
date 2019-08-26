@@ -18,7 +18,7 @@ public class StateController {
     private StateService service;
 
     @GetMapping
-    public ResponseEntity<List<State>> findStateFromAPI(){
+    public ResponseEntity<List<State>> findStateFromAPI() {
         List<State> states = service.findStateFromAPI();
         return ResponseEntity.ok().body(states);
     }
