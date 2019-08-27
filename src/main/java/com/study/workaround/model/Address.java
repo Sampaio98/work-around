@@ -24,6 +24,9 @@ public class Address {
     @Embedded
     private City city;
 
+//    @Embedded
+//    private State state;
+
     @OneToMany(mappedBy = "address")
     private List<Party> parties;
 

@@ -7,9 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@Embeddable
 @Getter
 @Setter
+@Embeddable
 public class State {
 
     @Column(name = "state_id")

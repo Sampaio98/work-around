@@ -8,9 +8,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.util.Objects;
 
-@Embeddable
 @Getter
 @Setter
+@Embeddable
 public class City {
 
     @Column(name = "city_id")
@@ -22,8 +22,7 @@ public class City {
     @Embedded
     private State state;
 
-    public City() {
-    }
+    public City() { }
 
     @Override
     public boolean equals(Object o) {

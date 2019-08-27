@@ -13,7 +13,12 @@ public class PartyService {
     @Autowired
     private PartyRepositoryImpl repository;
 
+
     public Party insert(Party party){
         return repository.save(party);
+    }
+
+    public Party findById(Long id) {
+        return repository.findById(id);
     }
 }

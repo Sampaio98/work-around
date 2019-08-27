@@ -23,4 +23,9 @@ public class CityController {
         List<CityDTO> cities = service.findCitiesByStateId(id);
         return ResponseEntity.ok().body(cities);
     }
+
+    @GetMapping(value = "/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok().body("test");
+    }
 }
