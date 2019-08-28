@@ -1,5 +1,6 @@
 package com.study.workaround.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +9,10 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,29 +26,28 @@ public class Party {
     @Column(unique = true)
     @NotEmpty(message = "Preenchimento obrigatório")
     @Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
-    private String name;
+    private String title;
 
     @NotEmpty(message = "Preenchimento obrigatório")
     @Length(min = 10, max = 255, message = "O tamanho deve ser entre 10 e 255 caracteres")
     private String description;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    private Date date;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime date;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
     private BigDecimal price;
 
-    @ManyToMany(mappedBy = "parties")
-    @JsonIgnoreProperties(value = "party")
-    private List<Person> participants;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "party")
     private Address address;
 
+    @OneToMany(mappedBy = "party")
+    @JsonIgnoreProperties(value = "party")
+    private Set<PartyDetail> partyDetail;
+
 
     public Party() {
-        this.participants = new ArrayList<>();
+        this.partyDetail = new HashSet<>();
         this.price = new BigDecimal("0");
     }
 

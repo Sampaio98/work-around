@@ -14,8 +14,5 @@ public interface PartyRepository extends JpaRepository<Party, Long> {
     @Query(nativeQuery = true, value = "select * from " + DBConfig.SCHEMA  + "party where id = ?1")
     Optional<Party> findPartyLoka(Long id);
 
-    @Query(nativeQuery = true, value = "select * from " + DBConfig.SCHEMA + "party where name = ?1")
-    Optional<Party> findPartyByName(String name);
-
-    Optional<Party> findByName(String name);
+    Optional<Party> findByTitle(String name);
 }

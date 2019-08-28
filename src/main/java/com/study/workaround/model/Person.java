@@ -1,5 +1,6 @@
 package com.study.workaround.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -24,7 +25,7 @@ public class Person {
 
     @Column(unique = true)
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Email(message="Email inválido")
+    @Email(message = "Email inválido")
     private String email;
 
     @Column(unique = true)
@@ -33,15 +34,12 @@ public class Person {
     @CollectionTable(name = "PERSON_CELLPHONE")
     private Set<String> cellphone;
 
-    @ManyToMany
-    @JoinTable(name = "PERSON_PARTY",
-            joinColumns = @JoinColumn(name = "person_fk"),
-            inverseJoinColumns = @JoinColumn(name = "party_fk")
-    )
-    private List<Party> parties;
+    @OneToMany(mappedBy = "person")
+    @JsonIgnoreProperties(value = "person")
+    private Set<PartyDetail> partyDetails;
 
     public Person() {
-        this.parties = new ArrayList<>();
+        this.partyDetails = new HashSet<>();
         this.cellphone = new HashSet<>();
     }
 

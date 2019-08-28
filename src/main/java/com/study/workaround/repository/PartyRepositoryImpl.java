@@ -1,7 +1,5 @@
 package com.study.workaround.repository;
 
-import com.study.workaround.config.DBConfig;
-import com.study.workaround.dto.PartyDTO;
 import com.study.workaround.exception.ObjectNotFoundException;
 import com.study.workaround.model.Party;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PartyRepositoryImpl {
 
+    private static final String NOT_FOUND_MSG = "Party not found.";
+
     @Autowired
     private PartyRepository jpa;
 
@@ -20,15 +20,14 @@ public class PartyRepositoryImpl {
     }
 
     public Party findById(Long id) {
-        return jpa.findById(id).orElseThrow(() -> new ObjectNotFoundException("Party not found."));
+        return jpa.findById(id).orElseThrow(() -> new ObjectNotFoundException(NOT_FOUND_MSG));
     }
 
-    public PartyDTO findByIdNative(Long id) {
-        Party party = jpa.findPartyLoka(id).orElseThrow(() -> new ObjectNotFoundException("Party not found."));
-        return new PartyDTO(party);
+    public Party findByIdNative(Long id) {
+        return jpa.findPartyLoka(id).orElseThrow(() -> new ObjectNotFoundException(NOT_FOUND_MSG));
     }
 
     public Party findByName(String name) {
-        return jpa.findPartyByName(name).orElseThrow(() -> new ObjectNotFoundException("Party not found."));
+        return jpa.findByTitle(name).orElseThrow(() -> new ObjectNotFoundException(NOT_FOUND_MSG));
     }
 }

@@ -1,6 +1,5 @@
 package com.study.workaround.service;
 
-import com.study.workaround.config.DBConfig;
 import com.study.workaround.dto.PartyDTO;
 import com.study.workaround.model.Party;
 import com.study.workaround.repository.PartyRepositoryImpl;
@@ -25,7 +24,8 @@ public class PartyService {
     }
 
     public PartyDTO findByIdNative(Long id) {
-        return repository.findByIdNative(id);
+        Party party = repository.findByIdNative(id);
+        return new PartyDTO(party);
     }
 
     public Party findByName(String name) {

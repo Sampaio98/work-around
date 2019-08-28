@@ -9,10 +9,10 @@ import lombok.Setter;
 public class PartyDTO {
 
     private Long id;
-    private String name;
+    private String title;
 
     public PartyDTO(Party party) {
         this.id = party.getId();
-        this.name = party.getName();
+        this.title = party.getTitle();
     }
 }
