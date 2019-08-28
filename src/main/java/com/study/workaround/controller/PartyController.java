@@ -1,5 +1,6 @@
 package com.study.workaround.controller;
 
+import com.study.workaround.dto.PartyDTO;
 import com.study.workaround.model.Party;
 import com.study.workaround.service.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,15 @@ public class PartyController {
     public ResponseEntity<Party> findById(@PathVariable("id") Long id) {
         Party party = service.findById(id);
         return ResponseEntity.ok().body(party);
+    }
+
+    @GetMapping(value = "/native/{id}")
+    public PartyDTO findByIdNative(@PathVariable("id") Long id) {
+        return service.findByIdNative(id);
+    }
+
+    @GetMapping(value = "/bagui")
+    public Party findByName(@RequestParam String name) {
+        return service.findByName(name);
     }
 }

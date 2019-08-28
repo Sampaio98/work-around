@@ -1,11 +1,17 @@
 package com.study.workaround.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
 public class Address {
 
     @Id
@@ -24,9 +30,7 @@ public class Address {
     @Embedded
     private City city;
 
-//    @Embedded
-//    private State state;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "address")
     private List<Party> parties;
 

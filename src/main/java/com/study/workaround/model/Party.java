@@ -1,5 +1,6 @@
 package com.study.workaround.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -37,9 +38,11 @@ public class Party {
     private BigDecimal price;
 
     @ManyToMany(mappedBy = "parties")
+    @JsonIgnoreProperties(value = "party")
     private List<Person> participants;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = "party")
     private Address address;
 
 
@@ -53,15 +56,11 @@ public class Party {
         if (this == o) return true;
         if (!(o instanceof Party)) return false;
         Party party = (Party) o;
-        return Objects.equals(id, party.id) &&
-                Objects.equals(name, party.name) &&
-                Objects.equals(description, party.description) &&
-                Objects.equals(date, party.date) &&
-                Objects.equals(price, party.price);
+        return Objects.equals(id, party.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, date, price);
+        return Objects.hash(id);
     }
 }

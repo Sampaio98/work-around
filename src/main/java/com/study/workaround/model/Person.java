@@ -1,5 +1,7 @@
 package com.study.workaround.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Entity
+@Getter
+@Setter
 public class Person {
 
     @Id

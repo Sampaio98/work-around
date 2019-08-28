@@ -22,7 +22,8 @@ public class City {
     @Embedded
     private State state;
 
-    public City() { }
+    public City() {
+    }
 
     @Override
     public boolean equals(Object o) {
