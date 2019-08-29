@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static com.study.workaround.service.RestTemplateSingleton.getRestTemplate;
+import static com.study.workaround.utils.RestTemplateSingleton.getRestTemplate;
 
 @Service
 public class JsonService {

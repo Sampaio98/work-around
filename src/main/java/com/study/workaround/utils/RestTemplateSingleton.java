@@ -1,4 +1,4 @@
-package com.study.workaround.service;
+package com.study.workaround.utils;
 
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;

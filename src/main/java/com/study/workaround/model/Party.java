@@ -2,6 +2,7 @@ package com.study.workaround.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -50,6 +51,7 @@ public class Party {
         this.partyDetail = new HashSet<>();
         this.price = new BigDecimal("0");
     }
+
 
     @Override
     public boolean equals(Object o) {
