@@ -1,6 +1,6 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.dto.CityDTO;
+import com.study.workaround.model.State;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -18,15 +18,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
-public class CityControllerTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+public class StateControllerTest {
 
     private MockMvc mockMvc;
 
     @MockBean
-    private CityController controller;
-
-    private static final Long ID_STATE = 41L;
+    private StateController controller;
 
 
     @Before
@@ -35,19 +33,26 @@ public class CityControllerTest {
     }
 
     @Test
-    public void testFindCitiesByStateId() throws Exception {
-        CityDTO c1 = new CityDTO(4100103L, "Abatiá");
-        CityDTO c2 = new CityDTO(4100202L, "Adrianópolis");
+    public void testFindStateFromAPI() throws Exception {
+        State state = new State();
+        state.setId(1L);
+        state.setName("Paraná");
+        state.setInitials("PR");
 
-        List<CityDTO> citiesDTO = Arrays.asList(c1, c2);
+        State state1 = new State();
+        state1.setId(2L);
+        state1.setName("São Paulo");
+        state1.setInitials("SP");
 
-        Mockito.when(controller.findCitiesByStateId(ID_STATE)).thenReturn(ResponseEntity.ok().body(citiesDTO));
+        List<State> states = Arrays.asList(state, state1);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/cities/state/" + ID_STATE))
+        Mockito.when(controller.findStateFromAPI()).thenReturn(ResponseEntity.ok().body(states));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/states"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        Assert.assertEquals(controller.findCitiesByStateId(ID_STATE).getBody().size(), citiesDTO.size());
+        Assert.assertTrue(controller.findStateFromAPI().getBody().size() == states.size());
 
     }
 }

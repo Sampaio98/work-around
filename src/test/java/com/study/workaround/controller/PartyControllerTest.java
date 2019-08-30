@@ -4,38 +4,34 @@ import com.study.workaround.model.Party;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 
 import static com.study.workaround.utils.JsonUtils.toJson;
 
-@SpringBootTest
 @RunWith(SpringRunner.class)
-@Transactional
 public class PartyControllerTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext context;
+    @MockBean
+    private PartyController controller;
 
     private Party party;
 
     @Before
     public void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
         party = new Party();
     }
 
@@ -47,29 +43,28 @@ public class PartyControllerTest {
 
         byte[] partyJson = toJson(party);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/parties")
+        mockMvc.perform(MockMvcRequestBuilders.post("/parties")
                 .content(partyJson)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn();
-
-        result.getResponse().getHeaderNames();
-        String location = result.getResponse().getHeader("Location");
-        String[] split = location.split("/");
-        Long id = Long.parseLong(split[split.length - 1]);
-
-        party.setId(id);
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void testFindById() throws Exception {
-        testInsert();
+        Party p = new Party();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/parties/" + party.getId())).andDo(MockMvcResultHandlers.print())
+        p.setId(10L);
+        p.setTitle("azideia mermao");
+        p.setDescription("a party mais loka do everson zoio mermao");
+        p.setPrice(new BigDecimal("1.00"));
+
+        Mockito.when(controller.findById(p.getId())).thenReturn(ResponseEntity.ok().body(p));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/parties/" + p.getId())).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(party.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(party.getTitle()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(p.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(p.getTitle()))
                 .andReturn();
     }
 }
