@@ -1,10 +1,13 @@
 package com.study.workaround.controller;
 
 import com.study.workaround.dto.CityDTO;
+import com.study.workaround.service.CityService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +26,11 @@ public class CityControllerTest {
 
     private MockMvc mockMvc;
 
-    @MockBean
+    @InjectMocks
     private CityController controller;
+
+    @Mock
+    private CityService servicer;
 
     private static final Long ID_STATE = 41L;
 
@@ -41,7 +47,7 @@ public class CityControllerTest {
 
         List<CityDTO> citiesDTO = Arrays.asList(c1, c2);
 
-        Mockito.when(controller.findCitiesByStateId(ID_STATE)).thenReturn(ResponseEntity.ok().body(citiesDTO));
+        Mockito.when(servicer.findCitiesByStateId(ID_STATE)).thenReturn(citiesDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/cities/state/" + ID_STATE))
                 .andDo(MockMvcResultHandlers.print())

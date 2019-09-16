@@ -1,13 +1,14 @@
 package com.study.workaround.controller;
 
 import com.study.workaround.model.State;
+import com.study.workaround.service.StateService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,8 +24,11 @@ public class StateControllerTest {
 
     private MockMvc mockMvc;
 
-    @MockBean
+    @InjectMocks
     private StateController controller;
+
+    @Mock
+    private StateService service;
 
 
     @Before
@@ -46,7 +50,7 @@ public class StateControllerTest {
 
         List<State> states = Arrays.asList(state, state1);
 
-        Mockito.when(controller.findStateFromAPI()).thenReturn(ResponseEntity.ok().body(states));
+        Mockito.when(service.findStateFromAPI()).thenReturn(states);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/states"))
                 .andDo(MockMvcResultHandlers.print())

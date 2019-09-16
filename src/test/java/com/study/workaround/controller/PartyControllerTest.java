@@ -1,13 +1,14 @@
 package com.study.workaround.controller;
 
 import com.study.workaround.model.Party;
+import com.study.workaround.service.PartyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,8 +25,11 @@ public class PartyControllerTest {
 
     private MockMvc mockMvc;
 
-    @MockBean
+    @InjectMocks
     private PartyController controller;
+
+    @Mock
+    private PartyService service;
 
     private Party party;
 
@@ -43,11 +47,13 @@ public class PartyControllerTest {
 
         byte[] partyJson = toJson(party);
 
+        Mockito.when(service.insert(party)).thenReturn(party);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/parties")
                 .content(partyJson)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
@@ -59,7 +65,7 @@ public class PartyControllerTest {
         p.setDescription("a party mais loka do everson zoio mermao");
         p.setPrice(new BigDecimal("1.00"));
 
-        Mockito.when(controller.findById(p.getId())).thenReturn(ResponseEntity.ok().body(p));
+        Mockito.when(service.findById(p.getId())).thenReturn(p);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/parties/" + p.getId())).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())

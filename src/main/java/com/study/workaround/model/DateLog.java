@@ -9,4 +9,6 @@ import javax.persistence.Embeddable;
 @Setter
 @Embeddable
 public class DateLog {
+
+    //TODO
 }

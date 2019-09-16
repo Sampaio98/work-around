@@ -21,7 +21,9 @@ public class PartyDetail {
     @ManyToOne
     private Party party;
 
-    private Integer rating;
+    private Integer interests;
+
+    private Integer confirmed;
 
     public PartyDetail() {
     }
