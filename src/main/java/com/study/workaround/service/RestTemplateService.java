@@ -10,7 +10,7 @@ import java.util.Map;
 import static com.study.workaround.utils.RestTemplateSingleton.getRestTemplate;
 
 @Service
-public class JsonService {
+public class RestTemplateService {
 
     public static JSONObject getJsonObject(String url) {
         JSONObject jsonObject = new JSONObject();

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.study.workaround.service.JsonService.getJsonArray;
+import static com.study.workaround.service.RestTemplateService.getJsonArray;
 
 @Service
 public class CityService {

@@ -1,5 +1,6 @@
 package com.study.workaround.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,14 +11,17 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
-public class State {
+public class State implements Comparable<State> {
 
+    @JsonProperty("id")
     @Column(name = "state_id")
     private Long id;
 
+    @JsonProperty("nome")
     @Column(name = "state_name")
     private String name;
 
+    @JsonProperty("sigla")
     @Column(name = "state_initials")
     private String initials;
 
@@ -37,5 +41,10 @@ public class State {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, initials);
+    }
+
+    @Override
+    public int compareTo(State o) {
+        return this.name.compareTo(o.getName());
     }
 }

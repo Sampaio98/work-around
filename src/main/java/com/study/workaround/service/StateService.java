@@ -1,20 +1,25 @@
 package com.study.workaround.service;
 
 import com.study.workaround.model.State;
+import com.study.workaround.service.feign.LocalesFeign;
 import org.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static com.study.workaround.service.JsonService.getJsonArray;
+import static com.study.workaround.service.RestTemplateService.getJsonArray;
 
 @Service
 @Transactional
 public class StateService {
 
+    @Autowired
+    private LocalesFeign feign;
+
     private static final String url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+
 
     public List<State> findStateFromAPI() {
 
@@ -30,5 +35,9 @@ public class StateService {
         }
 
         return states;
+    }
+
+    public SortedSet<State> findAllFromAPI() {
+        return feign.findAll();
     }
 }
