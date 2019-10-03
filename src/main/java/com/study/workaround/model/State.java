@@ -1,18 +1,18 @@
 package com.study.workaround.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Embeddable
 public class State implements Comparable<State> {
 
+    @EqualsAndHashCode.Include
     @JsonProperty("id")
     @Column(name = "state_id")
     private Long id;
@@ -24,24 +24,6 @@ public class State implements Comparable<State> {
     @JsonProperty("sigla")
     @Column(name = "state_initials")
     private String initials;
-
-    public State() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof State)) return false;
-        State state = (State) o;
-        return Objects.equals(id, state.id) &&
-                Objects.equals(name, state.name) &&
-                Objects.equals(initials, state.initials);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, initials);
-    }
 
     @Override
     public int compareTo(State o) {

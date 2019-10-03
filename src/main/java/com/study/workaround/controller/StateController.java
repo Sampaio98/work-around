@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 @RestController
 @RequestMapping(value = "/states")

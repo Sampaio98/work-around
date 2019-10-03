@@ -1,18 +1,18 @@
 package com.study.workaround.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import java.util.Objects;
 
-@Getter
-@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 @Embeddable
 public class City {
 
+    @EqualsAndHashCode.Include
     @Column(name = "city_id")
     private Long id;
 
@@ -22,20 +22,4 @@ public class City {
     @Embedded
     private State state;
 
-    public City() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof City)) return false;
-        City city = (City) o;
-        return Objects.equals(id, city.id) &&
-                Objects.equals(name, city.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 }

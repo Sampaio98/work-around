@@ -1,12 +1,10 @@
 package com.study.workaround.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Embeddable;
 
-@Getter
-@Setter
+@Data
 @Embeddable
 public class DateLog {
 

@@ -1,20 +1,22 @@
 package com.study.workaround.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 @Entity
-@Getter
-@Setter
 public class Person {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,19 +44,6 @@ public class Person {
         this.partyDetails = new HashSet<>();
         this.cellphone = new HashSet<>();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) &&
-                Objects.equals(name, person.name) &&
-                Objects.equals(email, person.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, email);
-    }
 }
+
+

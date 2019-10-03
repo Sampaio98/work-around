@@ -1,16 +1,16 @@
 package com.study.workaround.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Objects;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Data
 @Entity
-@Getter
-@Setter
 public class PartyDetail {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,19 +25,4 @@ public class PartyDetail {
 
     private Integer confirmed;
 
-    public PartyDetail() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PartyDetail)) return false;
-        PartyDetail that = (PartyDetail) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
