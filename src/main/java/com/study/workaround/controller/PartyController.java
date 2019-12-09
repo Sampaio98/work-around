@@ -1,8 +1,8 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.dto.PartyDTO;
-import com.study.workaround.model.Party;
-import com.study.workaround.service.PartyService;
+import com.study.workaround.domain.dto.PartyDTO;
+import com.study.workaround.domain.model.Party;
+import com.study.workaround.domain.service.PartyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

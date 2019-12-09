@@ -1,7 +1,7 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.model.Party;
-import com.study.workaround.service.PartyService;
+import com.study.workaround.domain.model.Party;
+import com.study.workaround.domain.service.PartyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

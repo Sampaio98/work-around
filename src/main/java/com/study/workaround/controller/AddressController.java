@@ -1,7 +1,7 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.model.Address;
-import com.study.workaround.service.AddressService;
+import com.study.workaround.domain.model.Address;
+import com.study.workaround.domain.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

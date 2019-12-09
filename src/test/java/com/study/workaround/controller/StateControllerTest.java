@@ -1,7 +1,7 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.model.State;
-import com.study.workaround.service.StateService;
+import com.study.workaround.domain.model.State;
+import com.study.workaround.domain.service.StateService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

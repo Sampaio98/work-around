@@ -1,7 +1,7 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.dto.CityDTO;
-import com.study.workaround.service.CityService;
+import com.study.workaround.domain.dto.CityDTO;
+import com.study.workaround.domain.service.CityService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;

@@ -1,7 +1,7 @@
 package com.study.workaround.controller;
 
-import com.study.workaround.dto.CityDTO;
-import com.study.workaround.service.CityService;
+import com.study.workaround.domain.dto.CityDTO;
+import com.study.workaround.domain.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
