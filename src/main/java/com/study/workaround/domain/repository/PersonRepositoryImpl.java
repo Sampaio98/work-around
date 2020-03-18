@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Transactional
@@ -43,17 +42,4 @@ public class PersonRepositoryImpl implements PersonRepositoryQueries {
         params.forEach(query::setParameter);
         return query.getResultList();
     }
-
-    @Override
-    public <T> List<T> findGeneric(Class<T> classType, Map<String, Object> params) {
-        String tableName = ClassHelper.getTableName(classType);
-        StringBuilder jpql = new StringBuilder();
-        jpql.append("from ").append(tableName).append(" where 0 = 0");
-
-        params.keySet().forEach(key -> jpql.append(" and ").append(key).append(" = :").append(key));
-        TypedQuery<T> query = manager.createQuery(jpql.toString(), classType);
-        params.forEach(query::setParameter);
-        return query.getResultList();
-    }
-
 }

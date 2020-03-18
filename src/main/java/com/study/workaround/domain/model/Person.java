@@ -2,11 +2,14 @@ package com.study.workaround.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +36,7 @@ public class Person {
     private String email;
 
     @Column(unique = true)
-    @NotEmpty(message = "Preenchimento obrigatório")
+//    @NotEmpty(message = "Preenchimento obrigatório")
     @ElementCollection
     @CollectionTable(name = "PERSON_CELLPHONE")
     private Set<String> cellphone;
@@ -41,6 +44,12 @@ public class Person {
     @OneToMany(mappedBy = "person")
     @JsonIgnoreProperties(value = "person")
     private Set<PartyDetail> partyDetails;
+
+    @CreationTimestamp
+    private LocalDateTime dateInsert;
+
+    @UpdateTimestamp
+    private LocalDateTime updateResource;
 }
 
 
